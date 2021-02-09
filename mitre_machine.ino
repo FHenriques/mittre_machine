@@ -7,6 +7,7 @@ volatile int firstnumber=99;  // used to tell how many numbers were entered on k
 volatile int secondnumber=99;
 volatile int thirdnumber=99;
 
+volatile int fourthnumber=99;
 
 
 // Variables to hold Distance and CurrentPosition
@@ -136,25 +137,35 @@ void checknumber(int x){
       String displayvalue = (String(firstnumber) + String(secondnumber));
       drawnokiascreen(displayvalue);
 
-    } else {  // It must be the 3rd number entered
+    } else if(thirdnumber == 99) {  // It must be the 3rd number entered
       thirdnumber=x;
       String displayvalue = (String(firstnumber) + String(secondnumber) + String(thirdnumber));
       drawnokiascreen(displayvalue);
 
+    }else{
+      fourthnumber=x;
+      String displayvalue = (String(firstnumber) + String(secondnumber) + String(thirdnumber)+ String(fourthnumber));
+      drawnokiascreen(displayvalue);
     }
   }
 }
 
  
 void deletenumber() {  // Used to backspace entered numbers
-  if (thirdnumber !=99) {
+  if (fourthnumber !=99) {
+      String displayvalue = (String(firstnumber) + String(secondnumber)+ String(thirdnumber));
+      drawnokiascreen(displayvalue);
+
+    fourthnumber=99;
+  } 
+  else {
+      if (thirdnumber !=99) {
       String displayvalue = (String(firstnumber) + String(secondnumber));
       drawnokiascreen(displayvalue);
 
     thirdnumber=99;
   } 
-  else {
-    if (secondnumber !=99) {
+   else if (secondnumber !=99) {
       String displayvalue = String(firstnumber);
       drawnokiascreen(displayvalue);
 
@@ -164,7 +175,6 @@ void deletenumber() {  // Used to backspace entered numbers
      if (firstnumber !=99) {
        String displayvalue = "";
        drawnokiascreen(displayvalue);
-
        firstnumber=99;
       }
     }
@@ -172,19 +182,22 @@ void deletenumber() {  // Used to backspace entered numbers
 }
   
 void calculatedistance() {  // Used to create a full number from entered numbers
-
-    if (thirdnumber == 99 && secondnumber == 99 && firstnumber != 99) {
+    if (fourthnumber==99 && thirdnumber == 99 && secondnumber == 99 && firstnumber != 99) {
       keyfullnumber=firstnumber;
       movestepper(keyfullnumber);
     }
-    
-    if (secondnumber != 99 && thirdnumber == 99) {
+    if (fourthnumber==99 && thirdnumber == 99 && secondnumber != 99) {
       keyfullnumber=(firstnumber*10)+secondnumber;
       movestepper(keyfullnumber);
     }
     
-    if (thirdnumber != 99) {
+    if (fourthnumber == 99 && thirdnumber != 99) {
       keyfullnumber=(firstnumber*100)+(secondnumber*10)+thirdnumber;
+      movestepper(keyfullnumber);
+    }
+    
+    if (fourthnumber != 99) {
+      keyfullnumber=(firstnumber*1000)+(secondnumber*100)+(thirdnumber*10)+fourthnumber;
       movestepper(keyfullnumber);
     }
     
@@ -216,6 +229,8 @@ void resetnumbers() {  // Reset numbers for next entry
   firstnumber=99;
   secondnumber=99;
   thirdnumber=99;
+  fourthnumber=99;
+
 } 
   
 
