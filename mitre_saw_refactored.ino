@@ -100,8 +100,6 @@ void loop() {
 
 void movestepper(int z) { //  Move the stepper
     int calculatedmove = ((z * 1600) / 80); //  Calculate number of steps needed in mm
-    Serial.print("Value MM: ");
-    Serial.println(z);
     stepper.runToNewPosition(calculatedmove);
     currentposition = String(z);
     u8g.firstPage();
